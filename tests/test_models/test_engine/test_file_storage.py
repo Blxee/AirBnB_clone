@@ -17,10 +17,18 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         storage = FileStorage()
+        with self.assertRaises(TypeError) as err:
+            storage.all("exess")
+        self.assertEqual(str(err.exception), 'FileStorage.all() takes 1'
+                         + ' positional argument but 2 were given')
         self.assertEqual(storage.all(), storage._FileStorage__objects)
 
     def test_save(self):
         storage = FileStorage()
+        with self.assertRaises(TypeError) as err:
+            storage.save("exess")
+        self.assertEqual(str(err.exception), 'FileStorage.save() takes 1'
+                         + ' positional argument but 2 were given')
         storage.save()
         file_name = storage._FileStorage__file_path
         self.assertTrue(path.exists(file_name))
